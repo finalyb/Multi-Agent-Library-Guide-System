@@ -1,0 +1,285 @@
+{
+  "library_name": "吉利学院图书馆",
+  "total_floors": 4,
+  "floors": [
+    {
+      "floor": "1F",
+      "name": "大厅与公共服务层",
+      "description": "入口大厅、总服务台、电子阅览室、自习区A、咖啡吧",
+      "landmarks": ["入口闸机", "总服务台", "存包柜区", "自助文印区", "咖啡吧"],
+      "zones": [
+        {
+          "id": "zone_1f_lobby",
+          "name": "入口大厅",
+          "description": "刷卡入馆后的大厅区域，设有LED信息屏（显示各层座位余量和通知公告）、楼层导览触摸屏",
+          "x": 150, "y": 100,
+          "navigation_hint": "从入口闸机直行即到"
+        },
+        {
+          "id": "zone_1f_service",
+          "name": "总服务台",
+          "description": "办理借还书、咨询、失物招领、校园卡问题等",
+          "x": 130, "y": 60,
+          "navigation_hint": "大厅左侧，紧邻入口闸机"
+        },
+        {
+          "id": "zone_1f_ereading",
+          "name": "电子阅览室",
+          "description": "配备80台电脑，可查阅数据库、上网、使用软件。刷卡上机，每次限2小时（无人排队可续时）",
+          "x": 50, "y": 80,
+          "navigation_hint": "大厅向左转，经过总服务台后左侧第一个门"
+        },
+        {
+          "id": "zone_1f_study_a",
+          "name": "自习区A",
+          "description": "200个座位，含部分靠窗卡座。无需预约，先到先得",
+          "x": 250, "y": 80,
+          "navigation_hint": "大厅向右转，咖啡吧对面"
+        },
+        {
+          "id": "zone_1f_print",
+          "name": "自助文印区",
+          "description": "4台多功能打印机/复印机/扫描仪，刷卡使用",
+          "x": 100, "y": 130,
+          "navigation_hint": "大厅右侧，电梯旁"
+        },
+        {
+          "id": "zone_1f_cafe",
+          "name": "咖啡吧",
+          "description": "提供咖啡、茶饮、简餐，营业时间8:00-21:00。允许轻声交谈",
+          "x": 260, "y": 40,
+          "navigation_hint": "大厅右前方，自习区A旁边"
+        },
+        {
+          "id": "zone_1f_lockers",
+          "name": "存包柜区",
+          "description": "电子存包柜（扫码使用，当日有效）和开放式存包架",
+          "x": 60, "y": 50,
+          "navigation_hint": "大厅左侧，总服务台后方"
+        }
+      ],
+      "elevators": [{"x": 150, "y": 140, "description": "主电梯（2部）"}],
+      "stairs": [
+        {"x": 40, "y": 140, "description": "楼梯A（西侧）"},
+        {"x": 260, "y": 140, "description": "楼梯B（东侧）"}
+      ],
+      "restrooms": [{"x": 70, "y": 150, "description": "1F洗手间（电梯后方走廊）"}],
+      "coordinate_grid": {"width": 300, "height": 200}
+    },
+    {
+      "floor": "2F",
+      "name": "社会科学与文学阅览层",
+      "description": "社会科学阅览区（A-K类）、文学区（I类）、自习区B，学生最常访问的楼层",
+      "landmarks": ["电梯出口", "推荐书架", "考试用书专架", "自习区B"],
+      "zones": [
+        {
+          "id": "zone_2f_lit",
+          "name": "文学区",
+          "description": "中国文学、外国文学、文学理论。书架编号 I0-I29（文学理论）、I210-I287（中国文学）、I3-I7（各国文学）。热门小说 I247.5 在推荐书架",
+          "x": 200, "y": 80,
+          "shelves": "I0 - I7",
+          "navigation_hint": "出电梯右转，穿过自习区B后东侧整片区域"
+        },
+        {
+          "id": "zone_2f_lit_hot",
+          "name": "推荐书架（文学热门）",
+          "description": "热门中国当代小说（I247.5类），包括《三体》《活着》《平凡的世界》等长期热借图书",
+          "x": 180, "y": 60,
+          "shelves": "I247.5 推荐",
+          "navigation_hint": "2F电梯出口正对面，最显眼的位置"
+        },
+        {
+          "id": "zone_2f_social",
+          "name": "社会科学区",
+          "description": "中图法A-K类（除I文学外）：A马列、B哲学、C社科总论、D政治法律、E军事、F经济、G文化教育、H语言、J艺术、K历史地理",
+          "x": 100, "y": 100,
+          "shelves": "A - K",
+          "navigation_hint": "出电梯左转，整片西侧和中部区域"
+        },
+        {
+          "id": "zone_2f_lang",
+          "name": "语言学习区",
+          "description": "外语类（H3-H9）：英语四六级/考研英语/雅思托福/GRE备考资料、日语韩语教材、双语读物。配套光盘在电子阅览室",
+          "x": 80, "y": 50,
+          "shelves": "H3 - H9",
+          "navigation_hint": "社会科学区西侧尽头"
+        },
+        {
+          "id": "zone_2f_exam",
+          "name": "考试用书专架",
+          "description": "四六级/考研/考公/教资/司法考试最新备考资料，高周转率",
+          "x": 160, "y": 60,
+          "navigation_hint": "电梯出口右侧，推荐书架旁边"
+        },
+        {
+          "id": "zone_2f_study_b",
+          "name": "自习区B",
+          "description": "300个座位，2F最大自习区域，靠窗位置可俯瞰校园",
+          "x": 250, "y": 130,
+          "navigation_hint": "出电梯直行到底右转"
+        },
+        {
+          "id": "zone_2f_textbook",
+          "name": "教学参考书专架",
+          "description": "课程教材和指定参考书的保留本（馆内阅览不外借），包括高等数学、大学英语、思政课等",
+          "x": 50, "y": 130,
+          "navigation_hint": "社会科学区西侧，靠墙专区"
+        }
+      ],
+      "elevators": [{"x": 150, "y": 140, "description": "主电梯（2部）"}],
+      "stairs": [
+        {"x": 40, "y": 140, "description": "楼梯A（西侧）"},
+        {"x": 260, "y": 140, "description": "楼梯B（东侧）"}
+      ],
+      "restrooms": [
+        {"x": 70, "y": 150, "description": "2F洗手间"},
+        {"x": 230, "y": 150, "description": "2F洗手间（东侧）"}
+      ],
+      "coordinate_grid": {"width": 300, "height": 200}
+    },
+    {
+      "floor": "3F",
+      "name": "自然科学与期刊阅览层",
+      "description": "自然科学阅览区（N-X类）、期刊阅览室、研讨室（301-308）、自习区C",
+      "landmarks": ["电梯出口", "新书推荐展架", "期刊阅览室入口", "研讨室走廊"],
+      "zones": [
+        {
+          "id": "zone_3f_science",
+          "name": "自然科学区",
+          "description": "中图法N-X类：N自然科学总论、O数理化、P天文地球、Q生物、R医药、S农业、T工业技术（TP计算机/TQ化工/TU建筑等）、U交通运输、V航空航天、X环境科学",
+          "x": 100, "y": 80,
+          "shelves": "N - X",
+          "navigation_hint": "出电梯左转，整片西侧和中部区域"
+        },
+        {
+          "id": "zone_3f_cs",
+          "name": "计算机图书区",
+          "description": "TP类（计算机/编程/AI）：TP1-TP39。Python/Java/C++教材、算法、机器学习、Linux等热门技术书籍在此",
+          "x": 60, "y": 50,
+          "shelves": "TP1 - TP39",
+          "navigation_hint": "自然科学区西侧，靠窗位置"
+        },
+        {
+          "id": "zone_3f_cs_new",
+          "name": "新书推荐展架",
+          "description": "每月更新的技术新书，包括AI、数据科学、编程最新出版物",
+          "x": 160, "y": 50,
+          "navigation_hint": "3F电梯出口右侧，最显眼位置"
+        },
+        {
+          "id": "zone_3f_periodical",
+          "name": "期刊阅览室",
+          "description": "现刊300余种（中外文）、报纸40余种。期刊和报纸不外借，仅限室内阅览，可登记后拍照或复印",
+          "x": 250, "y": 80,
+          "navigation_hint": "出电梯右转到底，东侧独立房间"
+        },
+        {
+          "id": "zone_3f_back_issue",
+          "name": "过刊库",
+          "description": "两年前期刊合订本，可申请调阅",
+          "x": 270, "y": 50,
+          "navigation_hint": "期刊阅览室内部左侧门进入"
+        },
+        {
+          "id": "zone_3f_discuss",
+          "name": "研讨室区",
+          "description": "301-308共8间研讨室，容纳4-10人。配白板和投影仪。需提前预约",
+          "x": 250, "y": 130,
+          "navigation_hint": "出电梯右转，期刊阅览室对面走廊"
+        },
+        {
+          "id": "zone_3f_study_c",
+          "name": "自习区C",
+          "description": "300个座位，空调效果最佳的楼层，复习首选。充电插座充足",
+          "x": 100, "y": 150,
+          "navigation_hint": "自然科学区后方，靠窗区域"
+        }
+      ],
+      "elevators": [{"x": 150, "y": 140, "description": "主电梯（2部）"}],
+      "stairs": [
+        {"x": 40, "y": 140, "description": "楼梯A（西侧）"},
+        {"x": 260, "y": 140, "description": "楼梯B（东侧）"}
+      ],
+      "restrooms": [
+        {"x": 70, "y": 150, "description": "3F洗手间"},
+        {"x": 230, "y": 150, "description": "3F洗手间（东侧）"}
+      ],
+      "coordinate_grid": {"width": 300, "height": 200}
+    },
+    {
+      "floor": "4F",
+      "name": "特藏与办公层",
+      "description": "古籍特藏室（需预约）、办公区、学术报告厅、自习区D",
+      "landmarks": ["学术报告厅入口", "古籍特藏室大门", "办公区门禁"],
+      "zones": [
+        {
+          "id": "zone_4f_rare",
+          "name": "古籍特藏室",
+          "description": "珍藏古籍和地方文献，需提前预约并登记。开放时间：周一至周五 8:30-11:30 / 14:00-17:00。禁止拍照、禁止带包入内",
+          "x": 60, "y": 60,
+          "navigation_hint": "出电梯左转到底，独立门禁区域"
+        },
+        {
+          "id": "zone_4f_office",
+          "name": "图书馆办公区",
+          "description": "馆长办公室、采编部、技术部、读者服务部等。非工作人员请勿进入",
+          "x": 60, "y": 120,
+          "navigation_hint": "出电梯左转，古籍室后方"
+        },
+        {
+          "id": "zone_4f_hall",
+          "name": "学术报告厅",
+          "description": "容纳200人的报告厅，用于学术讲座、培训、文化活动。需通过图书馆办公室预约使用",
+          "x": 220, "y": 60,
+          "navigation_hint": "出电梯右转到底，东侧独立区域"
+        },
+        {
+          "id": "zone_4f_study_d",
+          "name": "自习区D",
+          "description": "200个座位，4F最安静的区域，适合深度阅读和写作。充电位充足",
+          "x": 200, "y": 130,
+          "navigation_hint": "出电梯直行，报告厅后方"
+        }
+      ],
+      "elevators": [{"x": 150, "y": 140, "description": "主电梯（2部）"}],
+      "stairs": [
+        {"x": 40, "y": 140, "description": "楼梯A（西侧）"},
+        {"x": 260, "y": 140, "description": "楼梯B（东侧）"}
+      ],
+      "restrooms": [
+        {"x": 70, "y": 150, "description": "4F洗手间"},
+        {"x": 230, "y": 150, "description": "4F洗手间（东侧）"}
+      ],
+      "coordinate_grid": {"width": 300, "height": 200}
+    }
+  ],
+  "graph_edges": [
+    {"from": "zone_1f_lobby", "to": "zone_1f_service", "distance": 3, "type": "walkway", "direction": "面朝大厅，向左前方走约3米"},
+    {"from": "zone_1f_lobby", "to": "zone_1f_ereading", "distance": 8, "type": "walkway", "direction": "从大厅左转，经过总服务台后左侧第一个门"},
+    {"from": "zone_1f_lobby", "to": "zone_1f_study_a", "distance": 10, "type": "walkway", "direction": "从大厅右转，咖啡吧对面"},
+    {"from": "zone_1f_lobby", "to": "zone_1f_print", "distance": 5, "type": "walkway", "direction": "从大厅直行右侧，电梯旁"},
+    {"from": "zone_1f_lobby", "to": "zone_1f_cafe", "distance": 12, "type": "walkway", "direction": "从大厅右前方直走，自习区A旁边"},
+    {"from": "zone_1f_lobby", "to": "zone_1f_lockers", "distance": 6, "type": "walkway", "direction": "从大厅左转，总服务台后方"},
+    {"from": "1F_elevator", "to": "2F_elevator", "distance": 1, "type": "elevator", "direction": "乘坐电梯至2楼"},
+    {"from": "1F_elevator", "to": "3F_elevator", "distance": 1, "type": "elevator", "direction": "乘坐电梯至3楼"},
+    {"from": "1F_elevator", "to": "4F_elevator", "distance": 1, "type": "elevator", "direction": "乘坐电梯至4楼"},
+    {"from": "1F_stair_a", "to": "2F_stair_a", "distance": 1, "type": "stairs", "direction": "走楼梯A至2楼"},
+    {"from": "2F_stair_a", "to": "3F_stair_a", "distance": 1, "type": "stairs", "direction": "走楼梯A至3楼"},
+    {"from": "3F_stair_a", "to": "4F_stair_a", "distance": 1, "type": "stairs", "direction": "走楼梯A至4楼"},
+    {"from": "1F_stair_b", "to": "2F_stair_b", "distance": 1, "type": "stairs", "direction": "走楼梯B至2楼"},
+    {"from": "2F_stair_b", "to": "3F_stair_b", "distance": 1, "type": "stairs", "direction": "走楼梯B至3楼"},
+    {"from": "3F_stair_b", "to": "4F_stair_b", "distance": 1, "type": "stairs", "direction": "走楼梯B至4楼"},
+    {"from": "2F_elevator", "to": "zone_2f_lit_hot", "distance": 3, "type": "walkway", "direction": "出电梯正前方，推荐书架"},
+    {"from": "zone_2f_lit_hot", "to": "zone_2f_lit", "distance": 8, "type": "walkway", "direction": "推荐书架后方东侧整片区域"},
+    {"from": "2F_elevator", "to": "zone_2f_social", "distance": 5, "type": "walkway", "direction": "出电梯左转，西侧和中部区域"},
+    {"from": "zone_2f_social", "to": "zone_2f_lang", "distance": 6, "type": "walkway", "direction": "社会科学区西侧尽头"},
+    {"from": "2F_elevator", "to": "zone_2f_study_b", "distance": 12, "type": "walkway", "direction": "出电梯直行到底右转"},
+    {"from": "3F_elevator", "to": "zone_3f_science", "distance": 5, "type": "walkway", "direction": "出电梯左转，西侧和中部区域"},
+    {"from": "zone_3f_science", "to": "zone_3f_cs", "distance": 6, "type": "walkway", "direction": "自然科学区西侧靠窗位置"},
+    {"from": "3F_elevator", "to": "zone_3f_periodical", "distance": 12, "type": "walkway", "direction": "出电梯右转到底，东侧独立房间"},
+    {"from": "3F_elevator", "to": "zone_3f_discuss", "distance": 10, "type": "walkway", "direction": "出电梯右转，期刊阅览室对面走廊"},
+    {"from": "4F_elevator", "to": "zone_4f_rare", "distance": 10, "type": "walkway", "direction": "出电梯左转到底，独立门禁区域"},
+    {"from": "4F_elevator", "to": "zone_4f_hall", "distance": 10, "type": "walkway", "direction": "出电梯右转到底，东侧独立区域"},
+    {"from": "4F_elevator", "to": "zone_4f_study_d", "distance": 8, "type": "walkway", "direction": "出电梯直行，学术报告厅后方"}
+  ]
+}

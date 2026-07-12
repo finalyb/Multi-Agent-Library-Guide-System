@@ -1,0 +1,38 @@
+# DGX Spark Hackathon - 图书馆新生AI导览助手
+# Python 3.10+
+
+# Web Framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+python-multipart==0.0.9
+
+# AI/ML Models
+openai>=1.50.0              # OpenAI-compatible client for Stepfun API
+chromadb>=0.5.0             # Vector database for RAG
+sentence-transformers>=3.0.0 # Local embedding fallback
+
+# NVIDIA SDK (DGX Spark)
+# tensorrt-llm               # Uncomment when DGX node is available
+# cudf                       # RAPIDS - GPU-accelerated data processing
+
+# Data Processing
+numpy>=1.26.0
+pandas>=2.2.0
+Pillow>=10.4.0
+
+# Database
+pymysql>=1.1.0
+
+# Utilities
+python-dotenv>=1.0.1
+pydantic>=2.8.0
+pydantic-settings>=2.4.0
+httpx>=0.27.0
+aiofiles>=24.1.0
+
+# Logging
+loguru>=0.7.2
+
+# Testing
+pytest>=8.3.0
+pytest-asyncio>=0.23.0

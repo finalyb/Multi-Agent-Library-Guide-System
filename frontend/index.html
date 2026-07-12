@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>图书馆AI导览助手 - 吉小图</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <span class="logo">📚</span>
+            <div>
+                <h1>图书馆导览助手</h1>
+                <span class="subtitle">AI吉小图 · 随时为您导航</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="status-dot online"></span>
+            <span class="status-text">在线</span>
+        </div>
+    </header>
+
+    <!-- Chat Area -->
+    <main class="chat-container" id="chatContainer">
+        <!-- Welcome Message -->
+        <div class="chat-bubble assistant">
+            <div class="bubble-avatar">🤖</div>
+            <div class="bubble-content">
+                <div class="bubble-text">
+                    <p>你好！我是图书馆AI导览助手<strong>吉小图</strong> 👋</p>
+                    <p>我可以帮你：</p>
+                    <ul>
+                        <li>📖 查询借阅规则和图书馆制度</li>
+                        <li>📍 找到任何图书/区域的位置</li>
+                        <li>🗺️ 规划从A到B的导航路径</li>
+                        <li>📸 <strong>拍照识别书架位置</strong>（点击下方相机按钮）</li>
+                    </ul>
+                    <p>有什么可以帮你的？</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions" id="quickActions">
+        <button class="quick-btn" onclick="sendQuick('借阅规则是什么？')">📖 借阅规则</button>
+        <button class="quick-btn" onclick="sendQuick('图书馆开放时间是？')">🕐 开馆时间</button>
+        <button class="quick-btn" onclick="sendQuick('文学类图书在哪里？')">📍 找文学区</button>
+        <button class="quick-btn" onclick="sendQuick('怎么预约自习座位？')">💺 预约座位</button>
+    </div>
+
+    <!-- Input Area -->
+    <footer class="input-area">
+        <button class="btn-camera" id="btnCamera" onclick="openCamera()" title="拍照识别">
+            📷
+        </button>
+        <div class="input-wrapper">
+            <input
+                type="text"
+                id="messageInput"
+                placeholder="输入你的问题..."
+                autocomplete="off"
+                onkeypress="handleKeyPress(event)"
+            />
+        </div>
+        <button class="btn-send" id="btnSend" onclick="sendMessage()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+            </svg>
+        </button>
+    </footer>
+
+    <!-- Camera Modal -->
+    <div class="modal-overlay" id="cameraModal">
+        <div class="camera-container">
+            <div class="camera-header">
+                <button class="btn-close" onclick="closeCamera()">✕</button>
+                <span>拍照识别书架/图书</span>
+            </div>
+            <video id="cameraPreview" autoplay playsinline></video>
+            <canvas id="cameraCanvas" style="display:none"></canvas>
+            <div class="camera-controls">
+                <label class="btn-upload" for="fileUpload">
+                    📁 从相册选择
+                    <input type="file" id="fileUpload" accept="image/*" capture="environment" onchange="handleFileUpload(event)" hidden>
+                </label>
+                <button class="btn-capture" id="btnCapture" onclick="capturePhoto()">
+                    <div class="capture-circle"></div>
+                </button>
+                <div class="camera-spacer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loadingText">正在识别中...</p>
+        </div>
+    </div>
+
+    <!-- Path Map Modal -->
+    <div class="modal-overlay" id="mapModal">
+        <div class="map-container">
+            <div class="map-header">
+                <button class="btn-close" onclick="closeMap()">✕</button>
+                <span>导航路径</span>
+            </div>
+            <div class="map-content" id="mapContent">
+                <!-- Dynamically filled -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/camera.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
