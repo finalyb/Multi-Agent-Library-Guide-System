@@ -38,8 +38,9 @@ async def main():
     # 构建RAG索引
     await rag_pipeline.build_index_async()
 
+    from backend.knowledge.vector_store import vector_store
     log.info("Knowledge base index built successfully!")
-    log.info(f"Total vectors: {rag_pipeline.vector_store.count()}")
+    log.info(f"Total vectors: {vector_store.count()}")
     log.info("=" * 50)
 
 

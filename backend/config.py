@@ -51,10 +51,10 @@ class Settings(BaseSettings):
     SESSION_TTL_SECONDS: int = Field(default=1800)  # 30分钟过期
     MAX_HISTORY_TURNS: int = Field(default=10)
 
-    # ===== MySQL 馆藏数据库（只读） =====
-    MYSQL_HOST: str = Field(default="172.16.71.21")
-    MYSQL_USER: str = Field(default="myview")
-    MYSQL_PASSWORD: str = Field(default="yangbo19861022")
+    # ===== MySQL 馆藏数据库（只读，可选） =====
+    MYSQL_HOST: str = Field(default="")
+    MYSQL_USER: str = Field(default="")
+    MYSQL_PASSWORD: str = Field(default="")
     MYSQL_DATABASE: Optional[str] = Field(default=None)
     MYSQL_CHARSET: str = Field(default="utf8mb4")
 

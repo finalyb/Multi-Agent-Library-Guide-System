@@ -5,6 +5,7 @@ FastAPI 主入口
 启动方式:
     uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 """
+import asyncio
 import uuid
 import base64
 from contextlib import asynccontextmanager
@@ -25,6 +26,16 @@ from backend.knowledge.rag_pipeline import rag_pipeline
 
 # ===== 生命周期 =====
 
+async def _preload_embedder():
+    """预加载嵌入模型，避免首次请求阻塞"""
+    try:
+        from backend.models.local_embedder import local_embedder
+        await local_embedder.embed(["test"])
+        log.info("Embedding model preloaded successfully")
+    except Exception as e:
+        log.warning(f"Embedding model preload failed: {e}")
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """应用启动/关闭时的生命周期管理"""
@@ -39,11 +50,15 @@ async def lifespan(app: FastAPI):
     kb_loader.load_all()
     log.info(f"Knowledge base loaded: {len(kb_loader.get_all_documents())} documents")
 
-    # 构建RAG索引（可选，首次启动时执行）
+    # 预加载嵌入模型（后台）
+    asyncio.create_task(_preload_embedder())
+
+    # 构建RAG索引（后台异步，不阻塞启动）
     try:
-        await rag_pipeline.build_index_async()
+        asyncio.create_task(rag_pipeline.build_index_async())
+        log.info("RAG index build started in background")
     except Exception as e:
-        log.warning(f"RAG index build skipped (API may not be available yet): {e}")
+        log.warning(f"RAG index build skipped: {e}")
 
     log.info("Server ready! 访问 http://localhost:8000 体验")
 
@@ -82,12 +97,12 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     session_id: str
     response: str
-    intent: str
-    search_sources: list[dict]
-    verify_result: dict | None
-    path_info: dict | None
-    target_location: str | None
-    processing_time_ms: float
+    intent: str = ""
+    search_sources: list[dict] = []
+    verify_result: dict | None = None
+    path_info: dict | None = None
+    target_location: str | None = None
+    processing_time_ms: float = 0.0
 
 
 # ===== API 路由 =====

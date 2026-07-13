@@ -112,26 +112,27 @@ class VectorStore:
     ) -> dict:
         """
         带元数据过滤的语义检索
-
-        Args:
-            query_embedding: 查询向量
-            doc_type: 文档类型过滤 (faq/rule/location)
-            category: FAQ/规章类别过滤
-            floor: 楼层过滤 (1F/2F/3F/4F)
-            top_k: 返回结果数
+        ChromaDB 只支持单一条件，多个条件需要 $and
         """
-        where = {}
+        conditions = []
         if doc_type:
-            where["type"] = doc_type
+            conditions.append({"type": doc_type})
         if category:
-            where["category"] = category
+            conditions.append({"category": category})
         if floor:
-            where["floor"] = floor
+            conditions.append({"floor": floor})
+
+        if len(conditions) == 0:
+            where = None
+        elif len(conditions) == 1:
+            where = conditions[0]
+        else:
+            where = {"$and": conditions}
 
         return self.search(
             query_embedding=query_embedding,
             top_k=top_k,
-            where=where if where else None,
+            where=where,
         )
 
     def count(self) -> int:
@@ -140,9 +141,12 @@ class VectorStore:
 
     def clear(self) -> None:
         """清空向量库（用于重建索引）"""
-        self.client.delete_collection(self.collection_name)
+        try:
+            self.client.delete_collection(self.collection_name)
+            log.info(f"Cleared collection: {self.collection_name}")
+        except Exception:
+            log.debug(f"Collection {self.collection_name} does not exist yet, skip delete")
         self._collection = None
-        log.info(f"Cleared collection: {self.collection_name}")
 
     def rebuild(
         self,

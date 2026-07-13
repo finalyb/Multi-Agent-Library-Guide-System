@@ -16,17 +16,15 @@ class MySQLClient:
     """
     馆藏数据库只读客户端
 
-    连接信息：
-    - Host: 172.16.71.21
-    - User: myview (只读)
-    - 用途：为 RAG 知识库提供真实馆藏数据
+    用途：为 RAG 知识库提供真实馆藏数据
+    连接信息通过 .env 配置
     """
 
     def __init__(
         self,
-        host: str = "172.16.71.21",
-        user: str = "myview",
-        password: str = "yangbo19861022",
+        host: str = "",
+        user: str = "",
+        password: str = "",
         charset: str = "utf8mb4",
         connect_timeout: int = 10,
     ):
