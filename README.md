@@ -54,7 +54,7 @@
 └──────────────────────────────────────────────┘
 ```
 
-## 🧠 Multi-Agent 设计（评审核心 — 权重25%）
+## 🧠 Multi-Agent 设计
 
 四个Agent，**有角色、有边界、有记忆**：
 
@@ -69,7 +69,7 @@
 
 ---
 
-## 🔧 技术栈（评审要求 — 权重15%）
+## 🔧 技术栈
 
 | 类别 | 组件 | 用途说明 |
 |------|------|---------|
@@ -100,7 +100,7 @@
 
 ### 环境要求
 - Python 3.10+
-- NVIDIA GPU (推荐 DGX Spark GB10)
+- NVIDIA DGX Spark
 - Stepfun API Key
 
 ### 安装
@@ -162,7 +162,7 @@ uvicorn backend.main:app --host 0.0.0.0 --port 8888
 │   ├── 项目说明文档.md          # 项目详细说明（≥600字）
 │   ├── 部署说明.md             # DGX Spark 部署步骤
 │   ├── 技术栈说明.md           # 技术组件使用详解
-│   └── 十日谈.md               # 开发历程征文（评审5%）
+│   └── library-ai-guide.mp4   # 作品演示视频
 ├── backend/
 │   ├── main.py                # FastAPI 入口
 │   ├── config.py              # 配置管理
