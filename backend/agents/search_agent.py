@@ -46,11 +46,8 @@ class SearchAgent(BaseAgent):
         """执行知识检索"""
         intent = context.intent
 
-        # Step 1: 查询重写（优化检索效果）
-        search_query = await self._rewrite_query(
-            context.user_message,
-            intent.value,
-        )
+        # Step 1: 直接用原始查询（改写会导致关键词丢失）
+        search_query = context.user_message
 
         # Step 2: 根据意图类型确定检索过滤器
         doc_type, category, floor = self._get_search_filters(intent, context.user_message)

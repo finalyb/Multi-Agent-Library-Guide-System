@@ -106,7 +106,7 @@ function renderAssistantPlaceholder() {
     const bubble = document.createElement('div');
     bubble.className = 'chat-bubble assistant';
     bubble.innerHTML = `
-        <div class="bubble-avatar">🤖</div>
+        <div class="bubble-avatar"><img src="jixiaotu.png" class="bot-avatar" alt="吉小图"></div>
         <div class="bubble-content">
             <div class="bubble-text">
                 <div class="typing-indicator">

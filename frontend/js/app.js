@@ -99,12 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 30000);
 
     // 关闭弹窗的点击事件
-    document.getElementById('cameraModal').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeCamera();
-    });
-    document.getElementById('mapModal').addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) closeMap();
-    });
+    const mapModal = document.getElementById('mapModal');
+    if (mapModal) {
+        mapModal.addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeMap();
+        });
+    }
 
     console.log('📚 图书馆AI导览助手 - 前端已就绪');
     console.log('Session:', SESSION_ID);

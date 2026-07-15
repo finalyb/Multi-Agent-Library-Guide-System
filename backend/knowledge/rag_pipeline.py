@@ -139,12 +139,11 @@ class RAGPipeline:
         Returns:
             [{"id": ..., "content": ..., "metadata": ..., "score": ...}, ...]
         """
-        # Step 1: 生成查询向量
-        try:
-            query_embedding = await stepfun_client.embed_single(query)
-        except Exception as e:
-            log.error(f"Query embedding failed: {e}")
-            return self._fallback_keyword_search(query, top_k)
+        # Step 1: 重新加载文档 + 直接用关键词检索（嵌入模型不可用）
+        kb_loader._loaded = False  # 强制重新加载最新数据
+        self._documents = kb_loader.get_all_documents()
+        self._bm25_index = BM25Index([d["content"] for d in self._documents])
+        return self._fallback_keyword_search(query, top_k)
 
         # Step 2: 向量检索
         chroma_results = vector_store.search_by_text(
@@ -282,8 +281,12 @@ class RAGPipeline:
     def _fallback_keyword_search(self, query: str, top_k: int) -> list[dict]:
         """
         降级方案：纯关键词匹配（当向量检索不可用时）
+        每次重新加载文档确保最新数据
         """
         log.warning("Using fallback keyword search")
+        from backend.knowledge.data_loader import kb_loader
+        kb_loader._loaded = False
+        self._documents = kb_loader.get_all_documents()
         results = []
         query_lower = query.lower()
 

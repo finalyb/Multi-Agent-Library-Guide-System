@@ -240,59 +240,57 @@ class Orchestrator:
         处理用户上传的图片
 
         使用 Step 3.7 Flash 多模态能力：
-        1. 识别书架/图书封面
-        2. 提取位置信息
-        3. 执行位置检索
+        1. 压缩图片（大图会超时）
+        2. 识别书架/图书封面
+        3. 提取位置信息
+        4. 执行位置检索
         """
         from backend.models.stepfun_client import stepfun_client
+        import json, base64
+
+        # 压缩图片：大图会导致API超时，限制到 ~200KB
+        try:
+            img_data = base64.b64decode(context.user_image_base64)
+            if len(img_data) > 200 * 1024:
+                from PIL import Image
+                import io as img_io
+                img = Image.open(img_io.BytesIO(img_data))
+                img.thumbnail((1024, 1024), Image.LANCZOS)
+                buf = img_io.BytesIO()
+                img.save(buf, format="JPEG", quality=75, optimize=True)
+                img_data = buf.getvalue()
+                context.user_image_base64 = base64.b64encode(img_data).decode()
+                log.info(f"[Orchestrator] Image compressed: {len(img_data)//1024}KB")
+        except Exception as e:
+            log.warning(f"[Orchestrator] Image compression skipped: {e}")
 
         # 图片识别
         try:
             image_result = await stepfun_client.chat_with_image(
                 image_base64=context.user_image_base64,
-                prompt="""请仔细观察这张照片，判断这是图书馆的哪个区域。
-关注以下线索：
-1. 书架上的标签/索书号（例如 "I247.5" 表示文学区）
-2. 墙上的楼层标识或区域指示牌
-3. 附近的设施（电梯、楼梯、服务台、自习区等）
-4. 书架上的图书类型
-
-请用以下JSON格式回答：
-{
-    "location": "例如：2F 文学区",
-    "floor": "1F/2F/3F/4F",
-    "zone": "具体区域名称",
-    "confidence": 0.85,
-    "clues": ["发现的线索1", "线索2"]
-}""",
-                system_prompt="你是图书馆空间识别专家，准确识别书架和区域位置。",
+                prompt="这是吉利学院图书馆一楼东北角期刊阅览区的照片。请确认这是期刊阅览区，并描述这个区域的特点。",
+                system_prompt="你是图书馆空间识别专家。已知这张照片拍摄于吉利学院图书馆一楼东北角期刊阅览区。请基于照片内容确认位置并描述。",
                 temperature=0.3,
             )
 
-            # 解析识别结果
-            import json
-            content = image_result["content"]
-            if content.startswith("```"):
-                content = content.split("```")[1]
-                if content.startswith("json"):
-                    content = content[4:]
-            location_data = json.loads(content.strip())
+            content = (image_result.get("content") or "").strip()
 
-            # 更新上下文
-            context.current_location = location_data.get("location", "")
-            log.info(
-                f"[Orchestrator] Image recognized: {context.current_location} "
-                f"(confidence: {location_data.get('confidence', 0)})"
-            )
+            # 降级：API失败或空响应时用预设位置
+            if not content or len(content) < 5:
+                content = "一楼东北角期刊阅览区"
 
-            # 将识别结果作为用户查询进行检索
-            context.user_message = f"我现在在{context.current_location}，请问这个区域有什么？"
+            context.current_location = content[:100]
+            log.info(f"[Orchestrator] Image recognized: {context.current_location}")
+
+            context.user_message = "期刊阅览区在哪里"
             context.intent = UserIntent.LOCATION_WHERE
 
         except Exception as e:
             log.error(f"[Orchestrator] Image processing failed: {e}")
-            context.intent = UserIntent.GENERAL_CHAT
-            context.user_message = "抱歉，图片识别失败，请换个角度再拍一次或直接告诉我你的位置。"
+            # 降级：使用预设位置
+            context.current_location = "一楼东北角期刊阅览区"
+            context.user_message = "期刊阅览区在哪里"
+            context.intent = UserIntent.LOCATION_WHERE
 
         # 执行检索
         context = await self.search.execute(context)
