@@ -3,12 +3,31 @@
  * 支持从相册/文件选择照片，上传到后端进行AI识别
  */
 
+// 页面加载后绑定事件
+document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("imageFileInput");
+    if (fileInput) {
+        fileInput.addEventListener("change", function (event) {
+            console.log("File selected:", event.target.files[0]?.name);
+            handleFileUpload(event);
+        });
+        console.log("File upload listener bound");
+    } else {
+        console.error("imageFileInput not found!");
+    }
+});
+
 /**
  * 处理文件上传
  */
 function handleFileUpload(event) {
     const file = event.target.files[0];
-    if (!file) return;
+    if (!file) {
+        console.log("No file selected");
+        return;
+    }
+
+    console.log("Processing:", file.name, file.type, file.size);
 
     // 验证文件类型
     if (!file.type.startsWith("image/")) {
@@ -33,6 +52,8 @@ function handleFileUpload(event) {
  * 处理图片：上传 → 识别 → 展示结果
  */
 async function processImage(imageBlob) {
+    console.log("processImage started, blob:", imageBlob.type, imageBlob.size);
+
     const overlay = document.getElementById("loadingOverlay");
     const loadingText = document.getElementById("loadingText");
 
@@ -49,7 +70,9 @@ async function processImage(imageBlob) {
 
     try {
         loadingText.textContent = "AI正在分析图片...";
+        console.log("Calling apiUploadImage...");
         const result = await apiUploadImage(imageBlob, getSessionId());
+        console.log("Upload result:", result);
 
         // 关闭加载
         overlay.classList.remove("active");
