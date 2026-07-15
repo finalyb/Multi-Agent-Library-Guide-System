@@ -24,7 +24,6 @@
 
     <!-- Chat Area -->
     <main class="chat-container" id="chatContainer">
-        <!-- Welcome Message -->
         <div class="chat-bubble assistant">
             <div class="bubble-avatar">🤖</div>
             <div class="bubble-content">
@@ -35,7 +34,7 @@
                         <li>📖 查询借阅规则和图书馆制度</li>
                         <li>📍 找到任何图书/区域的位置</li>
                         <li>🗺️ 规划从A到B的导航路径</li>
-                        <li>📸 <strong>拍照识别书架位置</strong>（点击下方相机按钮）</li>
+                        <li>📸 <strong>上传照片识别位置</strong>（点击下方图片按钮）</li>
                     </ul>
                     <p>有什么可以帮你的？</p>
                 </div>
@@ -53,9 +52,10 @@
 
     <!-- Input Area -->
     <footer class="input-area">
-        <button class="btn-camera" id="btnCamera" onclick="openCamera()" title="拍照识别">
-            📷
-        </button>
+        <label class="btn-camera" for="imageFileInput" title="上传照片识别">
+            🖼️
+        </label>
+        <input type="file" id="imageFileInput" accept="image/*" onchange="handleFileUpload(event)" hidden>
         <div class="input-wrapper">
             <input
                 type="text"
@@ -72,28 +72,6 @@
         </button>
     </footer>
 
-    <!-- Camera Modal -->
-    <div class="modal-overlay" id="cameraModal">
-        <div class="camera-container">
-            <div class="camera-header">
-                <button class="btn-close" onclick="closeCamera()">✕</button>
-                <span>拍照识别书架/图书</span>
-            </div>
-            <video id="cameraPreview" autoplay playsinline></video>
-            <canvas id="cameraCanvas" style="display:none"></canvas>
-            <div class="camera-controls">
-                <label class="btn-upload" for="fileUpload">
-                    📁 从相册选择
-                    <input type="file" id="fileUpload" accept="image/*" capture="environment" onchange="handleFileUpload(event)" hidden>
-                </label>
-                <button class="btn-capture" id="btnCapture" onclick="capturePhoto()">
-                    <div class="capture-circle"></div>
-                </button>
-                <div class="camera-spacer"></div>
-            </div>
-        </div>
-    </div>
-
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
@@ -109,9 +87,7 @@
                 <button class="btn-close" onclick="closeMap()">✕</button>
                 <span>导航路径</span>
             </div>
-            <div class="map-content" id="mapContent">
-                <!-- Dynamically filled -->
-            </div>
+            <div class="map-content" id="mapContent"></div>
         </div>
     </div>
 
