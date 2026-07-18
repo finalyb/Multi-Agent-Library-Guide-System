@@ -22,7 +22,7 @@ async def main():
     log.info("=" * 50)
     log.info("Building knowledge base index...")
 
-    # 强制重新加载数据（清除缓存）
+    # 强制重新加载数据
     kb_loader._loaded = False
     kb_loader.load_all()
     docs = kb_loader.get_all_documents()
