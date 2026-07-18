@@ -66,7 +66,7 @@
 | **Verify Agent** | 幻觉检测 | 事实与知识库比对、不一致标记 | ❌ 生成内容、修改回复 |
 
 > 💡 **设计理念**：Agent 间通过 `AgentContext` 共享状态（记忆），通过 `allowed_actions`/`forbidden_actions` 强制执行边界约束。借鉴上一届获奖作品 "Starfire-AgentTeam" 的核心理念——从"单兵作战"到"组织化协作"。
-
+数据基于测试数据
 ---
 
 ## 🔧 技术栈
