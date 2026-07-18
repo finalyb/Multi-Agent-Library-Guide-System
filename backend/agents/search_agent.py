@@ -13,7 +13,7 @@ from backend.knowledge.data_loader import kb_loader
 from backend.utils.logger import log
 
 
-# ===== 查询重写 System Prompt =====
+# ====== 查询重写 System Prompt ======
 
 QUERY_REWRITE_PROMPT = """将用户的自然语言问题改写为更适合知识库检索的查询语句。
 
