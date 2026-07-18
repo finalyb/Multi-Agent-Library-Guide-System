@@ -13,7 +13,7 @@ from backend.models.stepfun_client import stepfun_client
 from backend.utils.logger import log
 
 
-# ===== 意图分类 System Prompt =====
+# ====== 意图分类 System Prompt ======
 
 INTENT_CLASSIFY_PROMPT = """你是图书馆AI导览助手的意图分类器。分析用户消息，判断其意图。
 
